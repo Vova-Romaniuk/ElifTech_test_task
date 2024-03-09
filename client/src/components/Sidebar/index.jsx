@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Spinner from "../Spinner";
 import { apiClient } from "../../apiClient";
-
+import { useShoppingCard } from "../ShoppingCardProvider";
 function Sidebar({ setPharmacyId, pharmacyId }) {
 	const [pharmacies, setPharmacies] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const { shoppingCard } = useShoppingCard();
 
 	const fetchPharmacies = async () => {
 		try {
@@ -32,6 +33,18 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 		setPharmacyId(id);
 	};
 
+	const checkDisabledPharmacies = (pharmacyId) => {
+		if (shoppingCard.items.length === 0) {
+			return false;
+		}
+
+		const existingItem = shoppingCard.items.find(
+			(item) => item.pharmacyId === pharmacyId
+		);
+
+		return !existingItem || existingItem.pharmacyId !== pharmacyId;
+	};
+
 	return (
 		<div className='w-4/12 h-full flex flex-col border-r-2'>
 			{isLoading ? (
@@ -39,11 +52,12 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 			) : (
 				<div className='w-10/12 mx-auto flex flex-col gap-5'>
 					{pharmacies.map((item) => (
-						<div
-							className={`h-20 first:mt-3 w-full rounded-md cursor-pointer hover:scale-110 duration-200 border flex items-center ${
+						<button
+							className={`h-20 disabled:cursor-not-allowed first:mt-3 w-full rounded-md cursor-pointer hover:scale-110 duration-200 border flex items-center ${
 								pharmacyId === item.id && "scale-110"
 							}`}
 							key={item.id}
+							disabled={checkDisabledPharmacies(item.id)}
 							onClick={() => handleSetPharmacyId(item.id)}>
 							<div className='h-20 w-20 overflow-hidden'>
 								<img
@@ -52,11 +66,8 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 									alt={item.name}
 								/>
 							</div>
-							<span className='text-2xl ml-4'>
-								{item.name}
-								{item.id}
-							</span>
-						</div>
+							<span className='text-2xl ml-4'>{item.name}</span>
+						</button>
 					))}
 				</div>
 			)}

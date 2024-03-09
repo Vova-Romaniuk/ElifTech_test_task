@@ -33,7 +33,11 @@ function Shop() {
 	return (
 		<div className='w-full h-full flex'>
 			<Sidebar pharmacyId={pharmacyId} setPharmacyId={setPharmacyId} />
-			<WrapperProducts isLoading={isLoading} products={products} />
+			<WrapperProducts
+				pharmacyId={pharmacyId}
+				isLoading={isLoading}
+				products={products}
+			/>
 		</div>
 	);
 }

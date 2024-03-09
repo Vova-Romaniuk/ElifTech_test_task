@@ -1,6 +1,13 @@
 import Spinner from "../Spinner";
+import { useShoppingCard } from "../ShoppingCardProvider";
 
-function WrapperProducts({ isLoading, products }) {
+function WrapperProducts({ isLoading, products, pharmacyId }) {
+	const { addToShoppingCard } = useShoppingCard();
+
+	const addProductToChoppingCard = (product) => {
+		addToShoppingCard({ ...product, quantity: 1, pharmacyId });
+	};
+
 	return (
 		<div className='w-8/12 h-full'>
 			{isLoading ? (
@@ -25,7 +32,11 @@ function WrapperProducts({ isLoading, products }) {
 										<span>{item.price}$</span>
 									</div>
 									<div className='h-1/2 flex w-full items-center justify-end'>
-										<button className='border bg-[#9BACCE] duration-200 hover:bg-[#74829C] text-white rounded-md py-1 px-2 ml-auto mr-3'>
+										<button
+											onClick={() =>
+												addProductToChoppingCard(item)
+											}
+											className='border bg-[#9BACCE] duration-200 hover:bg-[#74829C] text-white rounded-md py-1 px-2 ml-auto mr-3'>
 											Add to card
 										</button>
 									</div>

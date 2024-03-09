@@ -7,7 +7,7 @@ function Header() {
 				Shop
 			</Link>
 			<span className='text-gray mx-4'>|</span>
-			<Link to='/shopping-cart'>Shopping card</Link>
+			<Link to='/shopping-card'>Shopping card</Link>
 		</div>
 	);
 }
