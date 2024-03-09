@@ -1,14 +1,14 @@
 const connection = require("../config/db.config");
 
 async function getProductsByPharmacy(req, res) {
-	const { pharmacyId } = req.params; // Assuming pharmacyId is provided as a parameter in the request
+	const { pharmacyId } = req.params;
 
 	try {
 		const data = await connection.promise().query(
 			`
         SELECT p.*
         FROM products p
-        JOIN pharmacy_products pp ON p.product_id = pp.product_id
+        JOIN pharmacy_products pp ON p.id = pp.product_id
         WHERE pp.pharmacy_id = ?
       `,
 			[pharmacyId]

@@ -4,7 +4,7 @@ async function getPharmacies(req, res) {
 	try {
 		const data = await connection
 			.promise()
-			.query(`SELECT *  FROM pharmacy;`);
+			.query(`SELECT *  FROM pharmacies;`);
 		res.json(data[0]);
 	} catch (err) {
 		res.status(500).json({
