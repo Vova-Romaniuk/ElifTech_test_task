@@ -1,6 +1,20 @@
+import { useState } from "react";
 import { useShoppingCard } from "../../components/ShoppingCardProvider";
+import InputWrapper from "../../components/InputWrapper";
+import { apiClient } from "../../apiClient";
 
 function ShoppingCard() {
+	const [order, setOrder] = useState({
+		date: "2024-03-06",
+		total_price: 0,
+		pharmacy_name: "default",
+		details: [],
+		user_name: "",
+		email: "",
+		phone: "",
+		address: "",
+	});
+
 	const {
 		shoppingCard,
 		updateShoppingCardItemQuantity,
@@ -13,6 +27,26 @@ function ShoppingCard() {
 		}, 0);
 	};
 
+	const setName = ({ target }) => {
+		const { value } = target;
+		setOrder({ ...order, user_name: value });
+	};
+
+	const setEmail = ({ target }) => {
+		const { value } = target;
+		setOrder({ ...order, email: value });
+	};
+
+	const setPhone = ({ target }) => {
+		const { value } = target;
+		setOrder({ ...order, phone: value });
+	};
+
+	const setAddress = ({ target }) => {
+		const { value } = target;
+		setOrder({ ...order, address: value });
+	};
+
 	const changeQuantity = (id, newQuantity) => {
 		updateShoppingCardItemQuantity(id, +newQuantity);
 	};
@@ -21,9 +55,58 @@ function ShoppingCard() {
 		removeFromShoppingCard(id);
 	};
 
+	const createOrder = async (e) => {
+		e.preventDefault();
+
+		try {
+			await apiClient.post(`${import.meta.env.VITE_API_URL}/order`, {
+				...order,
+				details: shoppingCard.items,
+				total_price: +calculateTotal().toFixed(2),
+			});
+		} catch (error) {
+			console.log("error");
+		}
+	};
+
 	return (
-		<div className='w-full h-full flex'>
-			<div className='w-5/12 h-full'></div>
+		<form onSubmit={createOrder} className='w-full h-full flex'>
+			<div className='w-5/12 h-full flex flex-col'>
+				<div className='w-9/12 h-4/6 flex flex-col m-auto justify-between'>
+					<InputWrapper
+						inputName='name'
+						labelValue='Name:'
+						placeholder='input your name'
+						onChange={setName}
+						value={order.user_name}
+						required
+					/>
+					<InputWrapper
+						inputName='email'
+						labelValue='Email:'
+						placeholder='input your email'
+						onChange={setEmail}
+						value={order.email}
+						required
+					/>
+					<InputWrapper
+						inputName='phone'
+						labelValue='Phone:'
+						placeholder='input your phone'
+						onChange={setPhone}
+						value={order.phone}
+						required
+					/>
+					<InputWrapper
+						inputName='address'
+						labelValue='Address:'
+						placeholder='input your address'
+						value={order.address}
+						onChange={setAddress}
+						required
+					/>
+				</div>
+			</div>
 			<div className='w-7/12 h-full '>
 				<div className='flex w-10/12 mx-auto gap-4 h-5/6 flex-col py-5 overflow-y-auto'>
 					{shoppingCard.items.map((item) => (
@@ -67,9 +150,14 @@ function ShoppingCard() {
 				</div>
 				<div className='ml-16 h-1/6 w-full flex flex-col mt-5'>
 					<span>Total Price: {calculateTotal().toFixed(2)}$</span>
+					<button
+						type='submit'
+						className='border bg-[#9BACCE] duration-200 text-3xl hover:bg-[#74829C] text-white rounded-md py-3 px-4 ml-auto mx-auto'>
+						Submit
+					</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 }
 
