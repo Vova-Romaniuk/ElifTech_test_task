@@ -6,7 +6,7 @@ async function getPharmacies(req, res) {
 			.promise()
 			.query(`SELECT *  FROM pharmacies;`);
 
-		res.json({ data: data[0] });
+		res.json(data[0]);
 	} catch (err) {
 		res.status(500).json({
 			message: err,
