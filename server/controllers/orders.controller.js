@@ -3,21 +3,25 @@ const connection = require("../config/db.config");
 async function getOrders(req, res) {
 	try {
 		const query = `
-		  SELECT o.*, od.detail_id, od.product_id, od.quantity, p.image_url, p.name, p.price
+		  SELECT o.*, od.id as detail_id, od.product_id, od.quantity, p.image_url, p.name, p.price
 		  FROM orders o
-		  JOIN order_details od ON o.order_id = od.order_id
-		  JOIN products p ON od.product_id = p.product_id
+		  JOIN order_details od ON o.id = od.order_id
+		  JOIN products p ON od.product_id = p.id
 		`;
 		const data = await connection.promise().query(query);
 
 		const orders = {};
 		data[0].forEach((row) => {
-			const orderId = row.order_id;
+			const orderId = row.id;
 			if (!orders[orderId]) {
 				orders[orderId] = {
-					order_id: row.order_id,
-					order_date: row.order_date,
+					order_id: row.id,
+					order_date: row.date,
 					total_price: row.total_price,
+					user_name: row.user_name,
+					email: row.email,
+					phone: row.phone,
+					address: row.address,
 					details: [],
 				};
 			}

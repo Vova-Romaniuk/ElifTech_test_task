@@ -2,6 +2,7 @@ import Shop from "./Shop";
 import Layout from "../components/Layout";
 import { ShoppingCardProvider } from "../components/ShoppingCardProvider";
 import ShoppingCard from "./ShoppindCard";
+import OrderHistory from "./OrderHistory";
 
 export const routes = [
 	{
@@ -19,6 +20,10 @@ export const routes = [
 					{
 						path: "/shopping-card",
 						element: <ShoppingCard />,
+					},
+					{
+						path: "/order-history",
+						element: <OrderHistory />,
 					},
 				],
 			},

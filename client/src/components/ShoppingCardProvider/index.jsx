@@ -56,6 +56,7 @@ const ShoppingCardProvider = () => {
 
 	const clearShoppingCard = () => {
 		dispatch({ type: "CLEAR_SHOPPING_CARD" });
+		localStorage.setItem("cardData", JSON.stringify([]));
 	};
 	const removeFromShoppingCard = (itemId) => {
 		dispatch({ type: "REMOVE_FROM_SHOPPING_CARD", payload: itemId });

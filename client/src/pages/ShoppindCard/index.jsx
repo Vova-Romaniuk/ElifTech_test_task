@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useShoppingCard } from "../../components/ShoppingCardProvider";
 import InputWrapper from "../../components/InputWrapper";
 import { apiClient } from "../../apiClient";
+import { useNavigate } from "react-router-dom";
 
 function ShoppingCard() {
 	const [order, setOrder] = useState({
-		date: "2024-03-06",
+		date: new Date(),
 		total_price: 0,
 		pharmacy_name: "default",
 		details: [],
@@ -15,9 +16,12 @@ function ShoppingCard() {
 		address: "",
 	});
 
+	const navigate = useNavigate();
+
 	const {
 		shoppingCard,
 		updateShoppingCardItemQuantity,
+		clearShoppingCard,
 		removeFromShoppingCard,
 	} = useShoppingCard();
 
@@ -59,11 +63,16 @@ function ShoppingCard() {
 		e.preventDefault();
 
 		try {
-			await apiClient.post(`${import.meta.env.VITE_API_URL}/order`, {
-				...order,
-				details: shoppingCard.items,
-				total_price: +calculateTotal().toFixed(2),
-			});
+			await apiClient
+				.post(`${import.meta.env.VITE_API_URL}/order`, {
+					...order,
+					details: shoppingCard.items,
+					total_price: +calculateTotal().toFixed(2),
+				})
+				.then(() => {
+					navigate("/");
+					clearShoppingCard();
+				});
 		} catch (error) {
 			console.log("error");
 		}
