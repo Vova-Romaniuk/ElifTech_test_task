@@ -8,6 +8,8 @@ function Header() {
 			</Link>
 			<span className='text-gray mx-4'>|</span>
 			<Link to='/shopping-card'>Shopping card</Link>
+			<span className='text-gray mx-4'>|</span>
+			<Link to='/order-history'>History</Link>
 		</div>
 	);
 }

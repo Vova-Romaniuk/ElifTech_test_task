@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Spinner from "../Spinner";
 import { apiClient } from "../../apiClient";
 import { useShoppingCard } from "../ShoppingCardProvider";
+
 function Sidebar({ setPharmacyId, pharmacyId }) {
 	const [pharmacies, setPharmacies] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);

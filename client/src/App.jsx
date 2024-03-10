@@ -6,7 +6,7 @@ const router = createBrowserRouter(routes);
 
 function App() {
 	return (
-		<div className='w-full h-screen flex'>
+		<div className='w-full h-screen flex overflow-hidden'>
 			<RouterProvider router={router} />
 		</div>
 	);
