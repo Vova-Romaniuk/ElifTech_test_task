@@ -6,7 +6,7 @@ const productController = require("./controllers/products.controller");
 const orderController = require("./controllers/orders.controller");
 
 var corsOptions = {
-	origin: "http://localhost:5173",
+	origin: "https://elif-tech-test-task-qhby.vercel.app/",
 };
 
 app.use(cors(corsOptions));
