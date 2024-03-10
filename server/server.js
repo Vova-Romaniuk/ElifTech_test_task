@@ -13,7 +13,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.get("/hearbeat", (req, res) => {
+app.get("/heartbeat", (req, res) => {
 	res.json({ message: "Welcome to my application." });
 });
 
