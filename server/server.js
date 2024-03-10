@@ -1,8 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const pharmacyController = require("./controllers/pharmacy.controller");
 const productController = require("./controllers/products.controller");
 const orderController = require("./controllers/orders.controller");
+
+//https://elif-tech-test-task-qhby.vercel.app/
+app.use(cors({ origin: true }));
 
 app.use(express.json());
 
