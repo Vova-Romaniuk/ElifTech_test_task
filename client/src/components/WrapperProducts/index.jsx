@@ -15,7 +15,7 @@ function WrapperProducts({ isLoading, products, pharmacyId }) {
 			) : (
 				<div className='w-full flex h-full mx-auto p-1 overflow-y-auto'>
 					<div className='w-10/12 mx-auto py-10 h-fit grid grid-cols-3 gap-10'>
-						{products.map((item) => (
+						{products?.map((item) => (
 							<div
 								className='h-60 w-full flex flex-col border rounded-md'
 								key={item.id}>

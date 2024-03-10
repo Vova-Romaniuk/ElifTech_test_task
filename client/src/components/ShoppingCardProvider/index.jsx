@@ -18,7 +18,7 @@ const shoppingCardReducer = (state, action) => {
 		case "UPDATE_SHOPPING_CARD_ITEM_QUANTITY":
 			return {
 				...state,
-				items: state.items.map((item) =>
+				items: state.items?.map((item) =>
 					item.id === action.payload.itemId
 						? { ...item, quantity: action.payload.quantity }
 						: item

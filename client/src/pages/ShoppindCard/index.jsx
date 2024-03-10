@@ -118,7 +118,7 @@ function ShoppingCard() {
 			</div>
 			<div className='w-7/12 h-full '>
 				<div className='flex w-10/12 mx-auto gap-4 h-5/6 flex-col py-5 overflow-y-auto'>
-					{shoppingCard.items.map((item) => (
+					{shoppingCard.items?.map((item) => (
 						<div
 							className='h-60 w-full flex border rounded-md relative'
 							key={item.id}>

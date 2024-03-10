@@ -75,7 +75,7 @@ function OrderHistory() {
 			) : (
 				<div className='h-4/6 w-full overflow-y-auto'>
 					<div className='w-10/12 mx-auto h-fit flex flex-col gap-5 py-5'>
-						{orders.map((item) => (
+						{orders?.map((item) => (
 							<Accordion
 								date={item.date}
 								total_price={item.total_price}

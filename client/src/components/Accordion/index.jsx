@@ -41,7 +41,7 @@ function Accordion({
 			</div>
 			{isShowProducts && (
 				<div className='w-full h-fit py-7 grid grid-cols-3 gap-5 px-10'>
-					{details.map((item) => (
+					{details?.map((item) => (
 						<div
 							className='h-36 w-full flex flex-col border rounded-md'
 							key={item.product_id}>

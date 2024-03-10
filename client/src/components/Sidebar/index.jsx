@@ -17,7 +17,7 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 			);
 
 			const { data } = response;
-
+			console.log(typeof data);
 			setPharmacies(data);
 		} catch (error) {
 			console.log("error");
@@ -52,24 +52,27 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 				<Spinner />
 			) : (
 				<div className='w-10/12 mx-auto flex flex-col gap-5'>
-					{pharmacies.map((item) => (
-						<button
-							className={`h-20 disabled:cursor-not-allowed first:mt-3 w-full rounded-md cursor-pointer hover:scale-110 duration-200 border flex items-center ${
-								pharmacyId === item.id && "scale-110"
-							}`}
-							key={item.id}
-							disabled={checkDisabledPharmacies(item.id)}
-							onClick={() => handleSetPharmacyId(item.id)}>
-							<div className='h-20 w-20 overflow-hidden'>
-								<img
-									src={item.icon_url}
-									className='w-full h-full object-cover'
-									alt={item.name}
-								/>
-							</div>
-							<span className='text-2xl ml-4'>{item.name}</span>
-						</button>
-					))}
+					{pharmacies.length > 0 &&
+						pharmacies?.map((item) => (
+							<button
+								className={`h-20 disabled:cursor-not-allowed first:mt-3 w-full rounded-md cursor-pointer hover:scale-110 duration-200 border flex items-center ${
+									pharmacyId === item.id && "scale-110"
+								}`}
+								key={item.id}
+								disabled={checkDisabledPharmacies(item.id)}
+								onClick={() => handleSetPharmacyId(item.id)}>
+								<div className='h-20 w-20 overflow-hidden'>
+									<img
+										src={item.icon_url}
+										className='w-full h-full object-cover'
+										alt={item.name}
+									/>
+								</div>
+								<span className='text-2xl ml-4'>
+									{item.name}
+								</span>
+							</button>
+						))}
 				</div>
 			)}
 		</div>
