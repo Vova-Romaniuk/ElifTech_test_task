@@ -63,7 +63,7 @@ function Sidebar({ setPharmacyId, pharmacyId }) {
 								onClick={() => handleSetPharmacyId(item.id)}>
 								<div className='h-20 w-20 overflow-hidden'>
 									<img
-										src={item.icon_url}
+										src={item.icon}
 										className='w-full h-full object-cover'
 										alt={item.name}
 									/>
